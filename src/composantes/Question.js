@@ -38,11 +38,18 @@ class Question extends Component {
     }
 
     renderResponce(responce, index) {
+        const {categorie, questionnaire, questionIndex, sendVote} = this.props;
         return (
+            // <button
+            //     key={index}
+            //     onClick={() => {
+            //         this.buttonHandle(index);
+            //     }}
+            // >
             <button
                 key={index}
                 onClick={() => {
-                    this.buttonHandle(index);
+                    sendVote(categorie, questionnaire, questionIndex, index);
                 }}
             >
                 {responce}

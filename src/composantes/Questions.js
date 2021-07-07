@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import Question from "./Question";
 import Web3 from "web3";
 import jsonInterface from "./jsonInterface.json";
+import QuestionBo from "../bo/QuestionBo";
 
-const contractAddress = "0xbe1dC92Fe08BBFAE31E2362bF2c66EdcEE2E2196";
+const contractAddress = "0x36d812d504a74b4caf5ec80b9c9a753417a42164";
 
 class Questions extends Component {
 
@@ -23,12 +24,16 @@ class Questions extends Component {
         this.ethereum = window.ethereum;
 
         this.state = {
-            isConnected: {
-                web3: false,
-                web3Account: null,
-            },
+            isConnected: false,
+            accounts: [],
             question: null,
             answerChoices: [],
+
+
+            categories: [],
+            questionnaires: [],
+            questions: [],
+
         };
 
     }
@@ -60,8 +65,8 @@ class Questions extends Component {
         this.ethereum.request({method: 'eth_requestAccounts'}).then((result) => {
 
             const state = {...this.state};
-            state.isConnected.web3 = true;
-            state.isConnected.web3Account = result[0];
+            state.isConnected = true;
+            state.accounts = result;
             this.setState(state);
 
             this.initEthereumEvents();
@@ -100,25 +105,37 @@ class Questions extends Component {
         // Sauvegarde dans une variable local du composant React
         this.contract = myContract;
 
-        this.getQuestion();
-        this.getAnswerChoices();
+        // this.getQuestion();
+        // this.getAnswerChoices();
+        this.initCategories();
     }
 
     /**
      * Intéroge le contract pour récupérer la question
      * @returns {Promise<void>}
      */
-    getQuestion = async () => {
+    initCategories = async () => {
 
         // Si Web3 est connecté
-        const {web3Account} = this.state.isConnected;
-        if (web3Account) {
+        const {accounts} = this.state;
+        if (accounts) {
 
             // Exécution d'une requete sur le Contract Solidity
-            this.contract.methods.question().call({from: web3Account}).then((result) => {
+            this.contract.methods.getCountCategorie().call({from: accounts[0]}).then(async (count) => {
+
+                const categories = [];
+
+                for (let i = 0; i < count; i++) {
+                    const dataCat = await this.contract.methods.getCategorieData(i).call({from: accounts[0]})
+                    categories.push(dataCat);
+                }
+
+                const state = {...this.state}
+                state.categories = categories;
+                this.setState(state);
 
                 // Enregistre la question dans l'état du composant react
-                this.setQuestionState(result);
+                // this.setQuestionState(result);
 
             }).catch((error) => {
                 console.error(error);
@@ -141,10 +158,10 @@ class Questions extends Component {
             // Exécution d'une requete sur le Contract Solidity
             this.contract.methods.getAnswerChoices().call({from: web3Account}).then((result) => {
 
-                console.log("getAnswerChoices", result);
+                // console.log("getAnswerChoices", result);
                 const tbResult = [];
 
-                for(const key in result){
+                for (const key in result) {
                     const item = result[key];
                     tbResult.push(item);
                 }
@@ -166,41 +183,135 @@ class Questions extends Component {
             // Exécution d'une requete sur le Contract Solidity
             this.contract.methods.addAnswer(responce).send({from: web3Account}).then((result) => {
 
-                console.log("addAnswer result ",result);
+                // console.log("addAnswer result ", result);
 
             }).catch((error) => {
                 console.error(error);
             });
         }
     }
-    
+
 
     questionAndResponceExist() {
         return (this.state.question && this.state.answerChoices[0]);
     }
 
-    renderQuestion() {
-        if (this.questionAndResponceExist()) {
+    // TODO add question index
+    renderQuestion(categorie, questionnaire, questionIndex, question, choices) {
+        return (
+            <Question sendVote={this.sendVote} categorie={categorie} questionIndex={questionIndex} questionnaire={questionnaire} question={question} responces={choices} />
+        );
+    }
 
-            // const question = "Quelle est la question ?";
-            // const responces = ["Yes","No"];
+    categorieHandle = async (event) => {
+        const indexCat = event.target.name;
+        // getCountQuestionnaire(uint _categorie)
+        const questionnaires = [];
+        const countQuestionnaire = await this.contract.methods.getCountQuestionnaire(indexCat).call({from: this.state.accounts[0]})
+        for (let i = 0; i < countQuestionnaire; i++) {
+            const questionnaire = await this.contract.methods.getQuestionnaireData(indexCat, i).call({from: this.state.accounts[0]});
+            questionnaires.push(questionnaire);
+        }
+        const state = {...this.state};
+        state.questionnaires = questionnaires;
+        this.setState(state);
+    }
 
-            const question = this.state.question;
-            const responces = this.state.answerChoices;
+    renderCategories() {
+        return this.state.categories.map((categorie, index) => {
+            console.log(categorie);
+            return (
+                <button key={index} name={categorie.index} onClick={this.categorieHandle}>
+                    {categorie.name}
+                </button>
+            );
+        });
+    }
+
+    questionnaireHandle = async (index, categorie) => {
+        // console.log("questionnaireHandle",index, categorie);
+        const questions = [];
+        const countQuestion = await this.contract.methods.getCountQuestions(categorie, index).call({from: this.state.accounts[0]});
+        for (let i = 0; i < countQuestion; i++) {
+            // getQuestionData(uint _categorie, uint _questionnaire, uint _question)
+            const data = await this.contract.methods.getQuestionData(categorie, index, i).call({from: this.state.accounts[0]});
+            const question = new QuestionBo(data.indexCategorie,data.indexQuestionnaire,`${i}`,data.titre,data.question,data.image,data.reponses);
+            console.log(question);
+            questions.push(question);
+        }
+        const state = {...this.state};
+        state.questions = questions;
+        this.setState(state);
+    }
+
+    renderQuestionnaires() {
+        return this.state.questionnaires.map((questionnaire, index) => {
+            // console.log("questionnaire",questionnaire);
+            // console.log("indexCategorie",questionnaire.indexCategorie);
 
             return (
-                <Question question={question} responces={responces} sendAnswerChoice={this.sendAnswerChoice}/>
-            )
-        }
+                <button key={index} name={index} onClick={() => {
+                    this.questionnaireHandle(index, questionnaire.indexCategorie);
+                }}>
+                    {questionnaire.name}
+                </button>
+            );
+        });
+    }
+
+    questionHandle = (event) => {
+        const indexCat = event.target.indexCat;
+        const indexQts = event.target.indexQts;
+        const index = event.target.name;
+        // console.log("questionHandle",indexCat,indexQts,index);
+    }
+
+    //addVoteToQuestion(uint _categorie, uint _questionnaire, uint _question, uint _choice)
+    sendVote = (categorie, questionnaire, question, choice) => {
+        console.log("Vote ok",categorie,questionnaire,question,choice);
+        this.contract.methods.addVoteToQuestion(categorie, questionnaire, question, choice).send({from: this.state.accounts[0]}).then((result)=>{
+          // TODO Actualiser
+            console.log("Vote ok");
+        });
+    }
+
+    // TODO avec code Anis
+    renderQuestions() {
+        return this.state.questions.map((question, index) => {
+            console.log("question", question);
+            return (
+                <div key={index}>
+                    {/* categorie, questionnaire, question, choice */}
+                    {this.renderQuestion(question.indexCategorie, question.indexQuestionnaire, question.indexQuestion,question.question, question.reponses)}
+                </div>
+                // <button key={index} name={index} indexCat={question.indexCategorie} indexQts={question.indexQuestionnaire} onClick={this.questionHandle}>
+                //     {question.question}
+                // </button>
+            );
+        });
     }
 
     render() {
         return (
-            <div class="centraBottoni">
-                <button onClick={this.connectToWeb3}>Connexion Web3</button><br/><br/>
-                {this.state.isConnected.web3Account}
+            <div className="centraBottoni">
+                <button onClick={this.connectToWeb3}>Connexion Web3</button>
+                <br/><br/>
+                {this.state.accounts}
                 <br/>
-                {this.renderQuestion()}
+
+                <div>
+                    {this.renderCategories()}
+                </div>
+
+                <div>
+                    {this.renderQuestionnaires()}
+                </div>
+
+                <div>
+                    {this.renderQuestions()}
+                </div>
+
+                {/*{this.renderQuestion()}*/}
             </div>
         );
     }

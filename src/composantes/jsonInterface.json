@@ -7,55 +7,192 @@
   {
     "inputs": [
       {
-        "internalType": "int256",
-        "name": "_value",
-        "type": "int256"
+        "internalType": "uint256",
+        "name": "_categorie",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
       }
     ],
-    "name": "addAnswer",
-    "outputs": [],
+    "name": "addQuestionnaire",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "getAnswerChoices",
-    "outputs": [
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_categorie",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_questionnaire",
+        "type": "uint256"
+      },
       {
         "internalType": "string",
-        "name": "",
+        "name": "_titre",
         "type": "string"
       },
       {
         "internalType": "string",
-        "name": "",
+        "name": "_question",
         "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_image",
+        "type": "string"
+      },
+      {
+        "internalType": "string[]",
+        "name": "_reponses",
+        "type": "string[]"
       }
     ],
-    "stateMutability": "view",
+    "name": "addQuestions",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "nbResponse",
-    "outputs": [
+    "inputs": [
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "_categorie",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_questionnaire",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_question",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_choice",
         "type": "uint256"
       }
     ],
+    "name": "addVoteToQuestion",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "createCategorie",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_categorie",
+        "type": "uint256"
+      }
+    ],
+    "name": "getCategorieData",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          },
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "questionnaires",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct Vote.reactCategories",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "getCategorieIndexByName",
+    "outputs": [
+      {
+        "internalType": "int256",
+        "name": "",
+        "type": "int256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "question",
+    "name": "getCountCategorie",
     "outputs": [
       {
-        "internalType": "string",
-        "name": "questionToAsk",
-        "type": "string"
+        "internalType": "uint256",
+        "name": "count",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -65,21 +202,328 @@
     "inputs": [
       {
         "internalType": "uint256",
+        "name": "_categorie",
+        "type": "uint256"
+      }
+    ],
+    "name": "getCountQuestionnaire",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "count",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_categorie",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_questionnaire",
+        "type": "uint256"
+      }
+    ],
+    "name": "getCountQuestions",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "count",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_categorie",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_questionnaire",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_question",
+        "type": "uint256"
+      }
+    ],
+    "name": "getQuestionData",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "indexCategorie",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "indexQuestionnaire",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "titre",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "question",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "image",
+            "type": "string"
+          },
+          {
+            "internalType": "string[]",
+            "name": "reponses",
+            "type": "string[]"
+          }
+        ],
+        "internalType": "struct Vote.reactQuestion",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_categorie",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_questionnaire",
+        "type": "uint256"
+      }
+    ],
+    "name": "getQuestionnaireData",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "indexCategorie",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "questions",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct Vote.reactQuestionnaire",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_categorie",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "getQuestionnaireIndexByName",
+    "outputs": [
+      {
+        "internalType": "int256",
+        "name": "",
+        "type": "int256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_categorie",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_questionnaire",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_question",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_numReponse",
+        "type": "uint256"
+      }
+    ],
+    "name": "getResultsVote",
+    "outputs": [
+      {
+        "internalType": "uint256",
         "name": "",
         "type": "uint256"
       }
     ],
-    "name": "responses",
-    "outputs": [
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
       {
-        "internalType": "address",
-        "name": "author",
-        "type": "address"
+        "internalType": "uint256",
+        "name": "_categorie",
+        "type": "uint256"
       },
       {
-        "internalType": "int256",
-        "name": "choice",
-        "type": "int256"
+        "internalType": "uint256",
+        "name": "_questionnaire",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_question",
+        "type": "uint256"
+      }
+    ],
+    "name": "getResultsVote",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256[]",
+            "name": "result",
+            "type": "uint256[]"
+          }
+        ],
+        "internalType": "struct Vote.reactResultVote",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_categorie",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_questionnaire",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_question",
+        "type": "uint256"
+      }
+    ],
+    "name": "getResultsVoteCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_categorie",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_questionnaire",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_question",
+        "type": "uint256"
+      }
+    ],
+    "name": "getResultsVoteNbReponses",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_categorie",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_questionnaire",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_question",
+        "type": "uint256"
+      }
+    ],
+    "name": "isVotedToQuestion",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",

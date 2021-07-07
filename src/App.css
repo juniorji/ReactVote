@@ -33,7 +33,7 @@ body {
 nav {
   margin:0;
   overflow:hidden;
-  background: #1E4151;
+  /*background: #1E4151;*/
   list-style: none;
   text-decoration:none;
   background-color: grey;
@@ -42,13 +42,13 @@ nav {
   /*position: fixed;*/
   top:auto;
   width: 100%;
-  align-items: center;
-  text-align:center;
-  justify-content: center;
+  /*align-items: center;*/
+  /*text-align:center;*/
+  /*justify-content: center;*/
 }
 header{
   text-align:center;
-  
+
 }
 .btpc{
   color:white;
@@ -98,7 +98,7 @@ header{
   border-bottom-right-radius: 40px;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
- 
+
 }
 .onTop{
   height:50%;
@@ -183,7 +183,7 @@ a{
   #btpc{
     display:none;
   }
-  
+
 }
 .showModal {
   display: none; /* Hidden by default */
