@@ -305,7 +305,7 @@ class Questions extends Component {
                     accounts={this.state.accounts}
                 />
 
-                <h1 className="setTitle">VOTE YOUR MAN</h1>
+                <h1 className="setTitle">Make your choice</h1>
 
                 <div className="centraBottoni">
 
