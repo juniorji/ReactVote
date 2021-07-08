@@ -33,14 +33,15 @@ class Question extends Component {
         }
     }
 
-    buttonHandle = (value) => {
-        this.props.sendAnswerChoice(value);
+    updateReponse = () => {
+        const {indexCategorie, indexQuestionnaire} = this.props.question;
+        this.props.questionnaireHandle(indexQuestionnaire, indexCategorie);
     }
 
     sendVoteHandle = (index) => {
         const {indexCategorie, indexQuestionnaire, indexQuestion} = this.props.question;
         const {sendVote} = this.props;
-        sendVote(indexCategorie, indexQuestionnaire, indexQuestion, index);
+        sendVote(indexCategorie, indexQuestionnaire, indexQuestion, index, this.updateReponse);
     }
 
     renderResponce(reponce, key) {
@@ -99,9 +100,6 @@ class Question extends Component {
                         <p>{question}</p>
                         <div>
                             {this.renderResponces()}
-
-                            {/*<button type="button" className="choice">YES</button>*/}
-                            {/*<button type="button" className="choice">NO</button>*/}
                         </div>
                     </div>
                 </div>

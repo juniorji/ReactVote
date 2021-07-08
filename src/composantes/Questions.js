@@ -200,6 +200,7 @@ class Questions extends Component {
             <Question
                 sendVote={this.sendVote}
                 question={question}
+                questionnaireHandle={this.questionnaireHandle}
             />
         );
     }
@@ -281,11 +282,9 @@ class Questions extends Component {
     }
 
     //addVoteToQuestion(uint _categorie, uint _questionnaire, uint _question, uint _choice)
-    sendVote = (categorie, questionnaire, question, choice) => {
-        console.log("Vote ok",categorie,questionnaire,question,choice);
+    sendVote = (categorie, questionnaire, question, choice, callback) => {
         this.contract.methods.addVoteToQuestion(categorie, questionnaire, question, choice).send({from: this.state.accounts[0]}).then((result)=>{
-          // TODO Actualiser
-            console.log("Vote ok");
+            callback();
         });
     }
 
