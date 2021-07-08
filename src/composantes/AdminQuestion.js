@@ -81,7 +81,7 @@ class AdminQuestion extends Component {
 
     render() {
         return (
-            <div class="centraBottoni">
+            <div className="centraBottoni">
                 <button id={"buttonId"} onClick={this.showModal}>remplir le questionaire</button>
                 {this.renderModal()}
             </div>

@@ -7,6 +7,8 @@ class QuestionBo{
     question;
     image;
     reponses;
+    isVoted;
+    resultsVote;
 
     constructor(indexCategorie, indexQuestionnaire, indexQuestion, titre, question, image, reponses) {
         this.indexCategorie = indexCategorie;
@@ -16,6 +18,8 @@ class QuestionBo{
         this.question = question;
         this.image = image;
         this.reponses = reponses;
+        this.isVoted = false;
+        this.resultsVote = [];
     }
 }
 

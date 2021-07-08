@@ -37,46 +37,67 @@ class Question extends Component {
         this.props.sendAnswerChoice(value);
     }
 
-    renderResponce(responce, index) {
-        const {categorie, questionnaire, questionIndex, sendVote} = this.props;
+    sendVoteHandle = (index) => {
+        const {indexCategorie,indexQuestionnaire,indexQuestion} = this.props.question;
+        const {sendVote} = this.props;
+        sendVote(indexCategorie, indexQuestionnaire, indexQuestion, index);
+    }
+
+    renderResponce(reponce,key) {
+        const {categorie, questionnaire, questionIndex, isVoted, index} = this.props.question;
+        const {sendVote} = this.props;
         return (
-            // <button
-            //     key={index}
-            //     onClick={() => {
-            //         this.buttonHandle(index);
-            //     }}
-            // >
             <button
-                key={index}
-                onClick={() => {
-                    sendVote(categorie, questionnaire, questionIndex, index);
-                }}
+                key={key}
+                onClick={()=>{this.sendVoteHandle(key)}}
+                disabled={isVoted ? "disabled" : ""}
             >
-                {responce}
+                {reponce}
             </button>
         );
     }
 
     renderResponces() {
-        const {responces} = this.props;
-        if (responces) {
-            return responces.map((responce, index) => {
-                return this.renderResponce(responce, index);
+        const {reponses} = this.props.question;
+        console.log("----------")
+        console.log("this.props.question",this.props.question)
+        console.log("responses",reponses)
+        if (reponses) {
+            return reponses.map((reponse, index) => {
+                return this.renderResponce(reponse, index);
             });
         }
     }
 
+    renderImage = () => {
+        const {image} = this.props.question;
+        let id = null;
+        if (!image || image === "") {
+            id = "QmTw7bopNPvZPezCgaqYALneMUcAy7CFWLxGsYAhzFqDYX";
+        } else {
+            id = image;
+        }
+
+        const link = `https://gateway.pinata.cloud/ipfs/${id}`;
+
+        return (
+            <img
+                src={link}
+                style={{maxHeight: 75}}
+            />
+        );
+    }
+
     renderModal() {
 
-        const {question} = this.props;
+        const {question, image, titre} = this.props.question;
 
         return (
             <div id="domanda">
                 <div id="qContainer" style={{display: `${this.state.style.modal.display}`}}>
                     <div id="id01" className="question">
-                        <h2>Question</h2>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Elon_Musk_Royal_Society.jpg"
-                             width="230" height="300"></img>
+                        <h2>{titre}</h2>
+                        {this.renderImage(question, image)}
                         <p>{question}</p>
                         <div>
                             {this.renderResponces()}
@@ -93,8 +114,7 @@ class Question extends Component {
 
     render() {
         return (
-            <div class="centraBottoni">
-                <button id={"buttonId"} onClick={this.showModal}>Afficher la question</button>
+            <div className="col-4">
                 {this.renderModal()}
             </div>
         );

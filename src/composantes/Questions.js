@@ -4,6 +4,7 @@ import Question from "./Question";
 import Web3 from "web3";
 import jsonInterface from "./jsonInterface.json";
 import QuestionBo from "../bo/QuestionBo";
+import "./questions.css";
 
 const contractAddress = "0x36d812d504a74b4caf5ec80b9c9a753417a42164";
 
@@ -134,9 +135,6 @@ class Questions extends Component {
                 state.categories = categories;
                 this.setState(state);
 
-                // Enregistre la question dans l'état du composant react
-                // this.setQuestionState(result);
-
             }).catch((error) => {
                 console.error(error);
             });
@@ -197,9 +195,12 @@ class Questions extends Component {
     }
 
     // TODO add question index
-    renderQuestion(categorie, questionnaire, questionIndex, question, choices) {
+    renderQuestion(question) {
         return (
-            <Question sendVote={this.sendVote} categorie={categorie} questionIndex={questionIndex} questionnaire={questionnaire} question={question} responces={choices} />
+            <Question
+                sendVote={this.sendVote}
+                question={question}
+            />
         );
     }
 
@@ -236,6 +237,19 @@ class Questions extends Component {
             // getQuestionData(uint _categorie, uint _questionnaire, uint _question)
             const data = await this.contract.methods.getQuestionData(categorie, index, i).call({from: this.state.accounts[0]});
             const question = new QuestionBo(data.indexCategorie,data.indexQuestionnaire,`${i}`,data.titre,data.question,data.image,data.reponses);
+
+            //isVotedToQuestion(uint _categorie, uint _questionnaire, uint _question)
+            const dataIsVoted = await this.contract.methods.isVotedToQuestion(categorie, index, i).call({from: this.state.accounts[0]});
+            question.isVoted = dataIsVoted;
+
+            // getResultsVoteNbReponses(uint _categorie, uint _questionnaire, uint _question) public view returns (uint)
+            const count = await this.contract.methods.getResultsVoteNbReponses(categorie, index, i).call({from: this.state.accounts[0]});
+            for (let j = 0; j < count; j++) {
+                const dataVote = await this.contract.methods.getResultsVote(categorie, index, i, j).call({from: this.state.accounts[0]});
+                question.resultsVote[j] = dataVote;
+            }
+
+
             console.log(question);
             questions.push(question);
         }
@@ -279,15 +293,7 @@ class Questions extends Component {
     renderQuestions() {
         return this.state.questions.map((question, index) => {
             console.log("question", question);
-            return (
-                <div key={index}>
-                    {/* categorie, questionnaire, question, choice */}
-                    {this.renderQuestion(question.indexCategorie, question.indexQuestionnaire, question.indexQuestion,question.question, question.reponses)}
-                </div>
-                // <button key={index} name={index} indexCat={question.indexCategorie} indexQts={question.indexQuestionnaire} onClick={this.questionHandle}>
-                //     {question.question}
-                // </button>
-            );
+            return this.renderQuestion(question);
         });
     }
 
@@ -307,7 +313,7 @@ class Questions extends Component {
                     {this.renderQuestionnaires()}
                 </div>
 
-                <div>
+                <div className={"row"}>
                     {this.renderQuestions()}
                 </div>
 
