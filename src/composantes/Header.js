@@ -54,7 +54,9 @@ export default function Header(props) {
                 </div>
                 <br/>
                 <div id="topline">
-                    <div id="slide">Anis has just voted Yes for Elon Musk</div>
+                    <div id="slide">
+                        {/*Anis has just voted Yes for Elon Musk*/}
+                    </div>
                 </div>
             </div>
         </nav>
