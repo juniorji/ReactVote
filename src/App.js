@@ -1,8 +1,6 @@
 import React, { createElement } from 'react'
 import './App.css';
-import Header from './composantes/Header';
 import Questions from './composantes/Questions';
-import AdminQuestion from './composantes/AdminQuestion';
 
 function App() {
    /* const myFunction = () => {
@@ -20,8 +18,6 @@ function App() {
     }*/
     return (
         <div className="allC">
-            <Header/>
-            <h1 className="setTitle">VOTE YOUR MAN</h1>
             <Questions/>
         </div>
     );

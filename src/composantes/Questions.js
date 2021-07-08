@@ -5,6 +5,7 @@ import Web3 from "web3";
 import jsonInterface from "./jsonInterface.json";
 import QuestionBo from "../bo/QuestionBo";
 import "./questions.css";
+import Header from "./Header";
 
 const contractAddress = "0x36d812d504a74b4caf5ec80b9c9a753417a42164";
 
@@ -298,25 +299,30 @@ class Questions extends Component {
 
     render() {
         return (
-            <div className="centraBottoni">
-                <button onClick={this.connectToWeb3}>Connexion Web3</button>
-                <br/><br/>
-                {this.state.accounts}
-                <br/>
+            <div>
+                <Header
+                    connectToWeb3={this.connectToWeb3}
+                    accounts={this.state.accounts}
+                />
 
-                <div>
-                    {this.renderCategories()}
+                <h1 className="setTitle">VOTE YOUR MAN</h1>
+
+                <div className="centraBottoni">
+
+                    <div>
+                        {this.renderCategories()}
+                    </div>
+
+                    <div>
+                        {this.renderQuestionnaires()}
+                    </div>
+
+                    <div className={"row"}>
+                        {this.renderQuestions()}
+                    </div>
+
+                    {/*{this.renderQuestion()}*/}
                 </div>
-
-                <div>
-                    {this.renderQuestionnaires()}
-                </div>
-
-                <div className={"row"}>
-                    {this.renderQuestions()}
-                </div>
-
-                {/*{this.renderQuestion()}*/}
             </div>
         );
     }
