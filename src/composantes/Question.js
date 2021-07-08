@@ -38,18 +38,19 @@ class Question extends Component {
     }
 
     sendVoteHandle = (index) => {
-        const {indexCategorie,indexQuestionnaire,indexQuestion} = this.props.question;
+        const {indexCategorie, indexQuestionnaire, indexQuestion} = this.props.question;
         const {sendVote} = this.props;
         sendVote(indexCategorie, indexQuestionnaire, indexQuestion, index);
     }
 
-    renderResponce(reponce,key) {
-        const {categorie, questionnaire, questionIndex, isVoted, index} = this.props.question;
-        const {sendVote} = this.props;
+    renderResponce(reponce, key) {
+        const {isVoted} = this.props.question;
         return (
             <button
                 key={key}
-                onClick={()=>{this.sendVoteHandle(key)}}
+                onClick={() => {
+                    this.sendVoteHandle(key)
+                }}
                 disabled={isVoted ? "disabled" : ""}
             >
                 {reponce}
@@ -59,9 +60,6 @@ class Question extends Component {
 
     renderResponces() {
         const {reponses} = this.props.question;
-        console.log("----------")
-        console.log("this.props.question",this.props.question)
-        console.log("responses",reponses)
         if (reponses) {
             return reponses.map((reponse, index) => {
                 return this.renderResponce(reponse, index);
@@ -73,7 +71,7 @@ class Question extends Component {
         const {image} = this.props.question;
         let id = null;
         if (!image || image === "") {
-            id = "QmTw7bopNPvZPezCgaqYALneMUcAy7CFWLxGsYAhzFqDYX";
+            id = "QmbYmvHM6cXLMVDm3dwWC3adPANfpL47q2GAH4mpGrAtRh";
         } else {
             id = image;
         }
