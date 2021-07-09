@@ -79,10 +79,23 @@ class AdminQuestion extends Component {
         );
     }
 
+    renderCategories() {
+
+        const {question} = this.props;
+
+        return (
+            // a utiliser {categories} pour afficher les bons valeurs
+            <div class="nav">
+                <button><a href="#">cat1</a></button>
+            </div>
+        );
+    }
+
     render() {
         return (
             <div class="centraBottoni">
                 <button id={"buttonId"} onClick={this.showModal}>remplir le questionaire</button>
+                {this.renderCategories()}
                 {this.renderModal()}
             </div>
         );

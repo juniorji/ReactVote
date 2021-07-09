@@ -42,9 +42,9 @@ nav {
   /*position: fixed;*/
   top:auto;
   width: 100%;
-  align-items: center;
+  /*align-items: center;
   text-align:center;
-  justify-content: center;
+  justify-content: center;*/
 }
 header{
   text-align:center;
@@ -161,7 +161,7 @@ a{
   .onTop{
     display:block;
   }
-  #topnav.responsive, #slide.responsive {
+  #topnav.responsive {
     position: relative;}
   #topnav.responsive .btn-mobile {
     position: absolute;
@@ -231,7 +231,7 @@ body span{
   color: white;
   width: 100%;
   display:absolute;
-  position: relative;
+  position: absolute;
   animation: 7s linear 7s infinite running myfirst;
   animation-direction: normal;
 }
@@ -251,4 +251,18 @@ body span{
   width: 100%;
   display:block;
   float:left;
+  position:relative;
+}
+.catDiv {
+  background-color: black; 
+  list-style-type: none;
+  text-align: center;
+  color:white;
+  margin: 0;
+  padding: 0;
+}
+.catDiv button {
+  display: inline-block;
+  font-size: 20px;
+  padding: 20px;
 }
