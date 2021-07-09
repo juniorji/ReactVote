@@ -31,6 +31,19 @@ export default function Header(props) {
         }
     }
 
+    const renderLastResponse = () => {
+        if (props.lastVote && props.lastVote.length > 0) {
+            return (
+                <>
+                <span style={{fontWeight: "bold", marginRight: 15}}>
+                    {props.lastVote[0]}
+                </span>
+                    Votre réponse : {props.lastVote[1]}
+                </>
+            );
+        }
+    }
+
     return (
         <nav>
             <div id="aHaut">
@@ -55,10 +68,7 @@ export default function Header(props) {
                 <br/>
                 <div id="topline">
                     <div id="slide">
-                        <span style={{fontWeight:"bold", marginRight:15}}>
-                            {props.lastVote[0]}
-                        </span>
-                        Votre réponse : {props.lastVote[1]}
+                        {renderLastResponse()}
                     </div>
                 </div>
             </div>
