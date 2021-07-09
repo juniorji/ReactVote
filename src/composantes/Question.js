@@ -8,8 +8,8 @@ class Question extends Component {
             style: {
                 modal: {
                     display: "block",
-                }
-            }
+                },
+            },
         };
 
     }
@@ -39,9 +39,10 @@ class Question extends Component {
     }
 
     sendVoteHandle = (index) => {
-        const {indexCategorie, indexQuestionnaire, indexQuestion} = this.props.question;
+        const {indexCategorie, indexQuestionnaire, indexQuestion, question, titre, reponses} = this.props.question;
         const {sendVote} = this.props;
-        sendVote(indexCategorie, indexQuestionnaire, indexQuestion, index, this.updateReponse);
+        const lastVote = [question, reponses[index]];
+        sendVote(indexCategorie, indexQuestionnaire, indexQuestion, index, this.updateReponse, lastVote);
     }
 
     renderResponce(reponce, key) {

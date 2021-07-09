@@ -42,9 +42,9 @@ nav {
   /*position: fixed;*/
   top:auto;
   width: 100%;
-  /*align-items: center;*/
-  /*text-align:center;*/
-  /*justify-content: center;*/
+  /*align-items: center;
+  text-align:center;
+  justify-content: center;*/
 }
 header{
   text-align:center;
@@ -161,7 +161,7 @@ a{
   .onTop{
     display:block;
   }
-  #topnav.responsive, #slide.responsive {
+  #topnav.responsive {
     position: relative;}
   #topnav.responsive .btn-mobile {
     position: absolute;
@@ -202,15 +202,15 @@ a{
 body{
   background-color: rgb(209, 193, 193);
 }
-body span{
-  position: absolute;
-  bottom:-50px;
-  background: transparent;
-  border-radius: 50%;
-  pointer-events:none;
-  box-shadow: inset 0 0 10px rgba(180, 175, 175, 0.5);
-  animation:animate 4s linear infinite;
-}
+/*body span{*/
+/*  position: absolute;*/
+/*  bottom:-50px;*/
+/*  background: transparent;*/
+/*  border-radius: 50%;*/
+/*  pointer-events:none;*/
+/*  box-shadow: inset 0 0 10px rgba(180, 175, 175, 0.5);*/
+/*  animation:animate 4s linear infinite;*/
+/*}*/
 @keyframes animate {
     0%
     {
@@ -230,9 +230,9 @@ body span{
 #slide {
   color: white;
   width: 100%;
-  display:absolute;
-  position: relative;
-  animation: 7s linear 7s infinite running myfirst;
+  /*display:absolute;*/
+  position: absolute;
+  animation: 14s linear 14s infinite running myfirst;
   animation-direction: normal;
 }
 @keyframes myfirst {
@@ -251,4 +251,18 @@ body span{
   width: 100%;
   display:block;
   float:left;
+  position:relative;
+}
+.catDiv {
+  background-color: black;
+  list-style-type: none;
+  text-align: center;
+  color:white;
+  margin: 0;
+  padding: 0;
+}
+.catDiv button {
+  display: inline-block;
+  font-size: 20px;
+  padding: 20px;
 }

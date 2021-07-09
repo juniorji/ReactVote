@@ -35,6 +35,7 @@ class Questions extends Component {
             categories: [],
             questionnaires: [],
             questions: [],
+            lastVote: "",
 
         };
 
@@ -238,7 +239,7 @@ class Questions extends Component {
         for (let i = 0; i < countQuestion; i++) {
             // getQuestionData(uint _categorie, uint _questionnaire, uint _question)
             const data = await this.contract.methods.getQuestionData(categorie, index, i).call({from: this.state.accounts[0]});
-            const question = new QuestionBo(data.indexCategorie,data.indexQuestionnaire,`${i}`,data.titre,data.question,data.image,data.reponses);
+            const question = new QuestionBo(data.indexCategorie, data.indexQuestionnaire, `${i}`, data.titre, data.question, data.image, data.reponses);
 
             //isVotedToQuestion(uint _categorie, uint _questionnaire, uint _question)
             const dataIsVoted = await this.contract.methods.isVotedToQuestion(categorie, index, i).call({from: this.state.accounts[0]});
@@ -283,8 +284,13 @@ class Questions extends Component {
     }
 
     //addVoteToQuestion(uint _categorie, uint _questionnaire, uint _question, uint _choice)
-    sendVote = (categorie, questionnaire, question, choice, callback) => {
-        this.contract.methods.addVoteToQuestion(categorie, questionnaire, question, choice).send({from: this.state.accounts[0]}).then((result)=>{
+    sendVote = (categorie, questionnaire, question, choice, callback, lastVote) => {
+        this.contract.methods.addVoteToQuestion(categorie, questionnaire, question, choice).send({from: this.state.accounts[0]}).then((result) => {
+
+            const state = {...this.state}
+            state.lastVote = lastVote;
+            this.setState(state);
+
             callback();
         });
     }
@@ -303,6 +309,7 @@ class Questions extends Component {
                 <Header
                     connectToWeb3={this.connectToWeb3}
                     accounts={this.state.accounts}
+                    lastVote={this.state.lastVote}
                 />
 
                 <h1 className="setTitle">Make your choice</h1>

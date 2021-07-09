@@ -55,7 +55,10 @@ export default function Header(props) {
                 <br/>
                 <div id="topline">
                     <div id="slide">
-                        {/*Anis has just voted Yes for Elon Musk*/}
+                        <span style={{fontWeight:"bold", marginRight:15}}>
+                            {props.lastVote[0]}
+                        </span>
+                        Votre réponse : {props.lastVote[1]}
                     </div>
                 </div>
             </div>
