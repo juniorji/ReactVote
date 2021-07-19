@@ -45,16 +45,17 @@ export default function Header(props) {
     }
 
     return (
-        <nav id="navAlto">
+        <><nav id="navAlto">
             <div id="leftLogo">
                 <img src={logo} className="App-logo" alt="logo"/><br/>
                 <a href="#" className="btpc sparisci" alt="logo">CRYPTO VOTE</a>
             </div>
-            <div id="topline">
+            
+        </nav>
+        <div id="topline">
                 <div id="slide">
                     {renderLastResponse()}
                 </div>
-            </div>
-        </nav>
+            </div></>
     );
 }
