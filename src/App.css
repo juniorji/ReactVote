@@ -1,13 +1,26 @@
 Header,Section,Main{
   float:right;
 }
-
+#navAlto{
+  align-items:center;
+  justify-content: center;
+  text-align: center;
+}
 .App-logo {
   height: 50px;
   pointer-events: none;
   text-align: center;
 }
-
+#aHaut{
+  align-items:center;
+  justify-content: center;
+  text-align: center;
+}
+#domande{
+  align-items:center;
+  justify-content: center;
+  text-align: center;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -42,6 +55,7 @@ nav {
   /*position: fixed;*/
   top:auto;
   width: 100%;
+  height: 30%;
   /*align-items: center;
   text-align:center;
   justify-content: center;*/
@@ -62,6 +76,13 @@ header{
   align-items: center;
   text-align:center;
   justify-content: center;
+}
+.categorieCentre{
+  text-align: center;
+}
+#leftLogo{
+  text-align: center;
+  padding:20px;
 }
 .topnav-left{
   float: left;
@@ -199,6 +220,10 @@ a{
 .centraBottoni{
   text-align: center;
 }
+#LogBott{
+  text-align: center;
+  margin-top:10px;
+}
 body{
   background-color: rgb(209, 193, 193);
 }
@@ -250,7 +275,7 @@ body span .buble{
   height:30px;
   width: 100%;
   display:block;
-  float:left;
+  float:right;
   position:relative;
 }
 .catDiv {

@@ -6,6 +6,7 @@ import jsonInterface from "./jsonInterface.json";
 import QuestionBo from "../bo/QuestionBo";
 import "./questions.css";
 import Header from "./Header";
+import Login from "./Login";
 
 const contractAddress = "0x36d812d504a74b4caf5ec80b9c9a753417a42164";
 
@@ -224,13 +225,26 @@ class Questions extends Component {
     renderCategories() {
         return this.state.categories.map((categorie, index) => {
             console.log(categorie);
-            return (
+            
+            return (<>
+            
                 <button key={index} name={categorie.index} onClick={this.categorieHandle}>
                     {categorie.name}
                 </button>
+                </>
             );
         });
     }
+    renderChoose() {
+        return this.state.accounts.map((categorie, index) => {
+            console.log(categorie);
+            return (
+            <>
+             <h3 id="categorieCentre">CHOOSE THE CATEGORY</h3>
+                </>
+             );
+            },[]);
+        }
 
     questionnaireHandle = async (index, categorie) => {
         // console.log("questionnaireHandle",index, categorie);
@@ -260,12 +274,21 @@ class Questions extends Component {
         state.questions = questions;
         this.setState(state);
     }
-
+    renderDomain() {
+        return this.state.accounts.map((categorie, index) => {
+            console.log(categorie);
+            return (
+            <>
+             <h3 className="categorieCentre">CHOOSE THE DOMAIN</h3>
+                </>
+             );
+            });
+        }
     renderQuestionnaires() {
         return this.state.questionnaires.map((questionnaire, index) => {
             // console.log("questionnaire",questionnaire);
             // console.log("indexCategorie",questionnaire.indexCategorie);
-
+            this.renderDomain();
             return (
                 <button key={index} name={index} onClick={() => {
                     this.questionnaireHandle(index, questionnaire.indexCategorie);
@@ -303,20 +326,42 @@ class Questions extends Component {
         });
     }
 
+     loginHandle() {
+       this.connectToWeb3();
+    }
+
+    renderLogin() {
+
+        if (this.state.accounts && this.state.accounts.length > 0) {
+            return this.state.accounts;
+        } else {
+            return (
+                <a href="#" type="button" className="sparisci" onClick={this.loginHandle()}> LOGIN</a>
+            );
+        }
+    }
+
     render() {
         return (
             <div>
                 <Header
-                    connectToWeb3={this.connectToWeb3}
-                    accounts={this.state.accounts}
+                    /*connectToWeb3={this.connectToWeb3}
+                    accounts={this.state.accounts}*/
                     lastVote={this.state.lastVote}
                 />
-
+                <div id="LogBott">
+                    <Login 
+                        connectToWeb3={this.connectToWeb3}
+                        accounts={this.state.accounts}
+                    />
+                </div>
+                
                 <h1 className="setTitle">Make your choice</h1>
 
                 <div className="centraBottoni">
 
                     <div>
+                        {this.renderChoose()}
                         {this.renderCategories()}
                     </div>
 
@@ -324,7 +369,7 @@ class Questions extends Component {
                         {this.renderQuestionnaires()}
                     </div>
 
-                    <div className={"row"}>
+                    <div className={"row"} id="domande">
                         {this.renderQuestions()}
                     </div>
 

@@ -3,7 +3,7 @@ import './App.css';
 import Questions from './composantes/Questions';
 
 function App() {
-    const myFunction = () => {
+    /*const myFunction = () => {
         const sea = document.gquerySelector('body');
         const buble = document.createElement('span');
         buble.classList.add("buble");
@@ -16,7 +16,7 @@ function App() {
             createElement.remove()
         }, 4000)
         setInterval(myFunction, 50)
-    }
+    }*/
 
     return (
         <div className="allC">

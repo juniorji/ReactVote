@@ -16,7 +16,7 @@ export default function Header(props) {
         }
     }
 
-    const loginHandle = () => {
+    /*const loginHandle = () => {
         props.connectToWeb3();
     }
 
@@ -29,7 +29,7 @@ export default function Header(props) {
                 <a href="#" type="button" className="sparisci" onClick={loginHandle}> LOGIN</a>
             );
         }
-    }
+    }*/
 
     const renderLastResponse = () => {
         if (props.lastVote && props.lastVote.length > 0) {
@@ -45,31 +45,14 @@ export default function Header(props) {
     }
 
     return (
-        <nav>
-            <div id="aHaut">
-                <div className="topnav-left" id="leftLogo">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <a href="#" className="btpc sparisci" alt="logo">CRYPTO VOTE</a>
-                </div>
-                <div className="topnav-right" id="topnav">
-                    {/*<a href="#" type="button" className="sparisci">ABOUT</a>*/}
-                    {/*<a href="#" type="button" className="sparisci"> CONTACT</a>*/}
-                    {renderLogin()}
-                    {/*<a href="#" type="button" className="sparisci"> SIGN IN</a>*/}
-                    <a href="#"
-                       id="btn-mobile"
-                       type="button"
-                       onClick={(event) => {
-                           event.preventDefault();
-                           myFunction();
-                       }}
-                    >MENU</a>
-                </div>
-                <br/>
-                <div id="topline">
-                    <div id="slide">
-                        {renderLastResponse()}
-                    </div>
+        <nav id="navAlto">
+            <div id="leftLogo">
+                <img src={logo} className="App-logo" alt="logo"/><br/>
+                <a href="#" className="btpc sparisci" alt="logo">CRYPTO VOTE</a>
+            </div>
+            <div id="topline">
+                <div id="slide">
+                    {renderLastResponse()}
                 </div>
             </div>
         </nav>
