@@ -19,10 +19,12 @@ function App() {
     }*/
 
     return (
+        <>
         <div className="allC">
             <Questions/>
             <span className={"buble"}></span>
         </div>
+        </>
     );
 }
 

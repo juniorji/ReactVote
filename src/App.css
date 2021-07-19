@@ -204,7 +204,18 @@ a{
   #btpc{
     display:none;
   }
-
+  #domande{
+    display: block;
+    float: right;
+  }
+  #domande img{
+    width:100px;
+    height: 100px;
+  }
+  #domanda{
+    text-align: center;
+    align-items: center;
+  }
 }
 .showModal {
   display: none; /* Hidden by default */
@@ -225,7 +236,7 @@ a{
   margin-top:10px;
 }
 body{
-  background-color: rgb(209, 193, 193);
+  background-color:rgb(189, 202, 206);
 }
 body span .buble{
   position: absolute;
@@ -251,12 +262,21 @@ body span .buble{
       transform:translateY(-1200%);
       opacity:1;
     }
-}
+  }
+#topline{
+    background-color:black;
+    height:30px;
+    width: 100%;
+    display:block;
+    /*float:right;*/
+    position:relative;
+    overflow:hidden;
+  }
 #slide {
   color: white;
-  width: 100%;
-  /*display:absolute;*/
-  position: absolute;
+  position: fixed;
+  position:relative;
+  
   animation: 14s linear 14s infinite running myfirst;
   animation-direction: normal;
 }
@@ -270,14 +290,7 @@ body span .buble{
     top: 0px;
   }
 }
-#topline{
-  background-color:black;
-  height:30px;
-  width: 100%;
-  display:block;
-  float:right;
-  position:relative;
-}
+
 .catDiv {
   background-color: black;
   list-style-type: none;
